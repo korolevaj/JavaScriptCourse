@@ -5,9 +5,9 @@ class ProductList {
         this._productsObjects = [];
 
         this._fetchGoods();
-        this._render()
-        this.getSummaryPrice();
-    }
+        this._render();
+        this._calculatePrice();
+     };
 
     _fetchGoods() {
         this._goods = [
@@ -15,8 +15,8 @@ class ProductList {
             {id: 2, title: 'Mouse', price: 1500},
             {id: 3, title: 'Keyboard', price: 5000},
             {id: 4, title: 'Gamepad', price: 4500},
-        ];
-    }
+         ]
+     };
 
     _render() {
         for (const product of this._goods) {
@@ -26,15 +26,15 @@ class ProductList {
             this._productsObjects.push(productObject);
             this.container.insertAdjacentHTML('beforeend', productObject.getHTMLString());
         }
-    }
+    };
+    
+    _calculatePrice() {
+        return this._goods.reduce((prev, {price}) => prev + price, 0)
+      };
+};
 
-    //ФУНКЦИЯ ОПРЕДЕЛЯЕТ СУММАРНУЮ СТОИММОСТЬ ТОВАРА
-    getSummaryPrice (quantity = 1) {
-        this.price = product.price;
-        this.quantity = quantity;
-        return this.price * this.quantity;
-    }
-}
+
+
 
 class ProductItem {
     constructor(product, img = 'https://via.placeholder.com/200x150') {
@@ -57,27 +57,5 @@ class ProductItem {
 }
 
 const list = new ProductList();
-console.log(this._goods.getSummaryPrice());
-
-// const products = [
-//   {id: 1, title: 'Notebook', price: 20000},
-//   {id: 2, title: 'Mouse', price: 1500},
-//   {id: 3, title: 'Keyboard', price: 5000},
-//   {id: 4, title: 'Gamepad', price: 4500},
-// ];
-//
-// const renderProduct = (item, img='https://via.placeholder.com/200x150') => `<div class="product-item" data-id="${this.id}">
-//               <img src="${img}" alt="Some img">
-//               <div class="desc">
-//                   <h3>${item.title}</h3>
-//                   <p>${item.price} \u20bd</p>
-//                   <button class="buy-btn">Купить</button>
-//               </div>
-//           </div>`;
-//
-// const renderProducts = list => {
-// document.querySelector('.products').insertAdjacentHTML('beforeend', list.map(item => renderProduct(item)).join(''));
-// };
-//
-// renderProducts(products);
+console.log(this._goods._calculatePrice());
 
